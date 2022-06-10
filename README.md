@@ -18,3 +18,5 @@ We have tow principal strategies to handle loading screens:
   - We don't know if lose wifi connection or web crashed
 - Loading skeletons
   - have good practice user enjoy
+
+### loading screen
