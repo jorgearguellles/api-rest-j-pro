@@ -20,3 +20,9 @@ We have tow principal strategies to handle loading screens:
   - have good practice user enjoy
 
 ### loading screen
+
+check index.htm and index.js
+
+### Intersection Observer
+
+[Intersection Observer | MDN](category-container)
