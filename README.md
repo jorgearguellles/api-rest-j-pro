@@ -30,3 +30,31 @@ check index.htm and index.js
 It serves to observe elements and if they cross a threshold that we define, it will notify us to take action.
 
 The threshold is defined by the percentage that the viewport intersects with the visible part of our page.
+
+## 2. Pagination
+
+### Principal Strategies
+
+We have two principal strategies when we have a lot of info to want render in the screen. Info > Screen.
+
+- Infinite Scroll
+
+  - All content in the same page
+  - Infinite elements per page
+  - Navigation by scroll
+  - Difficult find results 🚩
+  - Difficult result estimate 🚩
+  - Bad feeling to Footer page 🚩
+  - Addicted
+  - Scroll > Clicks
+
+- Pagination
+
+  - Find specific content
+  - Content order by pages
+  - fix elements per page
+  - Navigation by buttons (next, back, number page ...)
+  - Amount of results estimate
+  - Don't addicted 🚩
+
+### Load more Button
