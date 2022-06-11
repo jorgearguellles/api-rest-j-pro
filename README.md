@@ -26,3 +26,7 @@ check index.htm and index.js
 ### Intersection Observer
 
 [Intersection Observer | MDN](category-container)
+
+It serves to observe elements and if they cross a threshold that we define, it will notify us to take action.
+
+The threshold is defined by the percentage that the viewport intersects with the visible part of our page.
