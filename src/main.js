@@ -8,10 +8,10 @@ const api = axios.create({
   },
 });
 
+
 // Utils ============================
 
 // const lazyLoader = new IntersectionObserver(callback /* ,options */); // Options are not sent because we will be looking at all applications.
-
 const lazyLoader = new IntersectionObserver((entries)=>{
   entries.forEach((entry)=>{
 
@@ -71,6 +71,7 @@ const createCategories = (categories, container) => {
   });
 };
 
+
 // API Calling ============================
 const getTrendingMoviesPreview = async () => {
   const { data } = await api('trending/movie/day');
@@ -93,9 +94,31 @@ const getMoviesByCategory = async (id) => {
     }
   });
   const movies = data.results;
+  maxPage = data.total_pages;
 
-  createMovies(movies, genericSection, true)
-}
+  createMovies(movies, genericSection, { lazyLoad: true, clean: true})
+};
+
+const getPaginatedMoviesByCategory = (id) => {
+  return async function(){
+    const {scrollTop, clientHeight, scrollHeight} = document.documentElement;
+    const isUserScrollBottom = (scrollTop + clientHeight) >= (scrollHeight - 15);
+    const isNotMaxPage = pageNumber < maxPage;
+    
+    if( isUserScrollBottom && isNotMaxPage ){
+      pageNumber++;
+      const { data } = await api('discover/movie', {
+        params: {
+          with_genres: id,
+          page: pageNumber,
+        }
+      });
+      const movies = data.results;
+    
+      createMovies(movies, genericSection, { lazyLoad: true, clean: false});
+    };
+    }
+};
 
 const getMoviesBySearch = async (query) => {
   const { data } = await api('search/movie',{
@@ -104,9 +127,32 @@ const getMoviesBySearch = async (query) => {
     }
   });
   const movies = data.results;
+  maxPage = data.total_pages;
+  console.log(maxPage);
 
   createMovies(movies, genericSection, true)
-}
+};
+
+const getPaginatedMoviesBySearch = (query) => {
+  return async function(){
+    const {scrollTop, clientHeight, scrollHeight} = document.documentElement;
+    const isUserScrollBottom = (scrollTop + clientHeight) >= (scrollHeight - 15);
+    const isNotMaxPage = pageNumber < maxPage;
+    
+    if( isUserScrollBottom && isNotMaxPage ){
+      pageNumber++;
+      const { data } = await api('search/movie', {
+        params: {
+          query,
+          page: pageNumber,
+        }
+      });
+      const movies = data.results;
+    
+      createMovies(movies, genericSection, { lazyLoad: true, clean: false});
+    };
+    }
+};
 
 const getTrendingMovies = async () => {
   const { data } = await api('trending/movie/day');

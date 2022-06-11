@@ -57,4 +57,4 @@ We have two principal strategies when we have a lot of info to want render in th
   - Amount of results estimate
   - Don't addicted 🚩
 
-### Load more Button
+## 2. Local Storage
