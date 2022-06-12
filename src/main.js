@@ -45,7 +45,7 @@ const lazyLoader = new IntersectionObserver((entries)=>{
 const createMovies = (movies, container, {lazyLoad = false, clean = true,} = {},) => {
   
   if(clean){
-    container.innerHTML = ''
+    container.innerHTML = '';
   }
 
   movies.forEach(movie => {
@@ -65,6 +65,7 @@ const createMovies = (movies, container, {lazyLoad = false, clean = true,} = {},
     
     const movieBtn = document.createElement('button');
     movieBtn.classList.add('movie-btn');
+    likedMoviesList()[movie.id] && movieBtn.classList.add('movie-btn--liked');
     movieBtn.addEventListener('click', ()=>{
       movieBtn.classList.toggle('movie-btn--liked');
       likeMovie(movie);
@@ -238,5 +239,12 @@ const getRelatedMoviesById = async (id) => {
   const relatedMovies = data.results;
   
   createMovies(relatedMovies, relatedMoviesContainer, true);
+};
+
+const getLikedMovies = () => {
+  const likedMovies = likedMoviesList();
+  const moviesArray = Object.values(likedMovies);
+  createMovies(moviesArray, likedMoviesListArticle, { lazyLoad: true, clean: true } );
+  console.log(moviesArray);
 };
 
