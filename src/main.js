@@ -31,21 +31,28 @@ const createMovies = (movies, container, {lazyLoad = false, clean = true,} = {},
   movies.forEach(movie => {
     const movieContainer = document.createElement('div');
     movieContainer.classList.add('movie-container');
-    movieContainer.addEventListener('click',()=>{
-    location.hash = '#movie=' + movie.id;
-    })
 
     const movieImg = document.createElement('img');
     movieImg.classList.add('movie-img');
     movieImg.setAttribute('alt', movie.title);
     movieImg.setAttribute(lazyLoad ? 'data-img' : 'src', 'https://image.tmdb.org/t/p/w300' + movie.poster_path);
+    movieImg.addEventListener('click',()=>{
+      location.hash = '#movie=' + movie.id;
+      })
     movieImg.addEventListener('error', ()=>{
       movieImg.setAttribute('src', 'https://images.unsplash.com/photo-1594322436404-5a0526db4d13?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1129&q=80')
     })
-     
+    
+    const movieBtn = document.createElement('button');
+    movieBtn.classList.add('movie-btn');
+    movieBtn.addEventListener('click', ()=>{
+      movieBtn.classList.toggle('movie-btn--liked');
+      // Add movie to LocalStorage
+    })
     lazyLoad && lazyLoader.observe(movieImg);
 
     movieContainer.appendChild(movieImg);
+    movieContainer.appendChild(movieBtn);
     container.appendChild(movieContainer)
   });
 };
