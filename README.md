@@ -58,3 +58,20 @@ We have two principal strategies when we have a lot of info to want render in th
   - Don't addicted 🚩
 
 ## 2. Local Storage
+
+### LocalStorage VS Real API
+
+- Local Storage
+  - Faster than Real API
+  - Browser dependency
+  - API independency
+  - Total frontend control
+  - Auth don't require 🚩
+  - Don't let us recovery or share our session 🚩
+  - **If we use private data, DON'T USE LocalStorage** 🚩🚩🚩
+- Real API
+  - Slower tah local storage 🚩
+  - Backend control 🚩
+  - Auth require 🚩
+  - Allow us share and recovery session
+  - **If we use private data, USE Real API** ✅
