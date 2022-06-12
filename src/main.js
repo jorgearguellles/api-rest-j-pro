@@ -1,3 +1,4 @@
+// Data & Helpers =============================
 const api = axios.create({
   baseURL: 'https://api.themoviedb.org/3',
   headers: {
@@ -8,13 +9,32 @@ const api = axios.create({
   },
 });
 
+const likedMoviesList = () => {
+  const item = JSON.parse( localStorage.getItem('liked_movies') );
+  let movies;
+  if (item) {
+    movies = item;
+  } else {
+    movies = {};
+  };
+  return movies;
+};
+
+const likeMovie = (movie) => {
+  const likedMoviesLS = likedMoviesList();
+  if (likedMoviesLS[movie.id]) {
+    likedMoviesLS[movie.id] = undefined;
+  } else {
+    likedMoviesLS[movie.id] = movie;
+  };
+  localStorage.setItem('liked_movies', JSON.stringify(likedMoviesLS));
+};
 
 // Utils ============================
 
 // const lazyLoader = new IntersectionObserver(callback /* ,options */); // Options are not sent because we will be looking at all applications.
 const lazyLoader = new IntersectionObserver((entries)=>{
   entries.forEach((entry)=>{
-
     if(entry.isIntersecting){
       const url = entry.target.getAttribute('data-img');
       entry.target.setAttribute('src', url);
@@ -47,7 +67,7 @@ const createMovies = (movies, container, {lazyLoad = false, clean = true,} = {},
     movieBtn.classList.add('movie-btn');
     movieBtn.addEventListener('click', ()=>{
       movieBtn.classList.toggle('movie-btn--liked');
-      // Add movie to LocalStorage
+      likeMovie(movie);
     })
     lazyLoad && lazyLoader.observe(movieImg);
 
